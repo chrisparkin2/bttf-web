@@ -9,7 +9,7 @@ module.exports = {
   create : function(req, res){
     User.find({
       username : req.body.username
-    }, function(err, user_found){
+    }, function(err, users_found){
       if(err){
         status = Status.STATUS_FAILED;
         message = "Could not create User: " + err;
@@ -20,7 +20,7 @@ module.exports = {
         });
       }
 
-      if(user_found){
+      if(users_found.length){
         status = Status.STATUS_FAILED;
         message = "Username already found"
 
