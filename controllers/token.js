@@ -19,6 +19,7 @@ module.exports = {
 
     var d = new Date();
     d.setMonth(d.getMonth() + 2);
+    console.log(user);
 
     Token.create({
       token: generateUUID(),

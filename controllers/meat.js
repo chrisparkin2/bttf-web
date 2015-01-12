@@ -74,7 +74,9 @@ module.exports = {
         });
       } else{
         if(meat_data){
+          console.log(meat_data);
           res.json({
+            status : Status.STATUS_OK,
             perc_data : meat_data['perc_data'],
             meat_data : meat_data['meat_data']
           });

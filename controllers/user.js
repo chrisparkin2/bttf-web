@@ -18,53 +18,55 @@ module.exports = {
           status : status,
           message : message
         });
-      }
-
-      if(users_found.length){
-        status = Status.STATUS_FAILED;
-        message = "Username already found"
-
-        res.json({
-          status : status,
-          message : message
-        });
       } else{
-        User.create(req.body , function(err, user){
-              status = Status.STATUS_OK;
-              message = "";
+        if(users_found.length){
+          status = Status.STATUS_FAILED;
+          message = "Username already found"
 
-              if(err){
-                status = Status.STATUS_FAILED;
-                message = "Could not create User: " + err;
+          res.json({
+            "status" : status,
+            "message" : message
+          });
+        } else{
+          User.create(req.body , function(err, user){
+                status = Status.STATUS_OK;
+                message = "";
 
-                res.json({
-                  status : status,
-                  message : message
-                });
-              }
+                if(err){
+                  status = Status.STATUS_FAILED;
+                  message = "Could not create User: " + err;
 
-              token_manager.create(user, function(success_data){
-                res.json({
-                  status : Status.STATUS_OK,
-                  message : "successfully created user",
-                  data : {
-                    token_id : success_data["token_id"]
-                  }
+                  res.json({
+                    "status" : status,
+                    "message" : message
+                  });
+                }
+
+                token_manager.create(user, function(success_data){
+                  res.json({
+                    status : Status.STATUS_OK,
+                    message : "successfully created user",
+                    data : {
+                      token_id : success_data["token_id"]
+                    }
+                  });
+                }, function(err_data){
+                  message = err_data["message"];
+
+                  res.json({
+                    "status" : status,
+                    "message" : message
+                  });
                 });
-              }, function(err_data){
-                message = err_data["message"];
-                res.json({
-                  status : Status.STATUS_FAILED,
-                  message : message
-                });
-              });
-        });
+          });
+        }
       }
     });
   },
 
   login : function(req, res){
     var username = req.body.username;
+    var input_password = req.body.password;
     User.findOne({
       username : username
     }, function(err, user){
@@ -88,20 +90,30 @@ module.exports = {
           message : message
         });
       } else{
-        token_manager.update(user, function(success_data){
+        if(user.password != input_password){
+          status = Status.STATUS_FAILED;
+          message = "Incorrect Password";
+
           res.json({
-            status : Status.STATUS_OK,
-            message : "successful login",
-            data : {
-              token_id : success_data["token_id"]
-            }
+            status : status,
+            message : message
           });
-        }, function(error_data){
-          res.json({
-            status : Status.STATUS_FAILED,
-            message : error_data["message"]
+        } else{
+          token_manager.update(user, function(success_data){
+            res.json({
+              status : Status.STATUS_OK,
+              message : "successful login",
+              data : {
+                token_id : success_data["token_id"]
+              }
+            });
+          }, function(error_data){
+            res.json({
+              status : Status.STATUS_FAILED,
+              message : error_data["message"]
+            });
           });
-        });
+        }
       }
     });
   }
