@@ -30,6 +30,7 @@ module.exports = {
       user_id : user_id
     }, function(err, meat){
       var meat_data = plist.parse(meat['meat_data']);
+      var meat_data_str = JSON.stringify(meat_data);
 
       var keys = [];
 
@@ -43,7 +44,7 @@ module.exports = {
       }
 
       traverse(meat_data);
-      res.render('manage_inventory', {subcut_names : keys, user_id : user_id});
+      res.render('manage_inventory', {subcut_names : keys, user_id : user_id, meat_data_str : meat_data_str});
     })
   },
 
@@ -68,11 +69,8 @@ module.exports = {
         for(var key in meats){
           if(is_dictionary(meats[key])){
             apply_weight(weight, meats[key], percs[key]);
-          } else{
-            var weight = meats[key];
-            var perc = percs[key];
-            var weight_to_add = perc * weight;
-            meats[key] -= weight_to_add;
+          } else if(key == 'Meat' && meats[key] >= weight){
+            meats[key] -= weight;
           }
         }
       }
@@ -102,7 +100,7 @@ module.exports = {
           meat_data : updated_meat_data_plist
         }, function(err, data){
           if(!err){
-            res.render('manage_inventory', {subcut_names : subcut_names, alert : 'applied!', user_id : user_id});
+            res.render('manage_inventory', {subcut_names : subcut_names, alert : 'applied!', user_id : user_id, meat_data_str : JSON.stringify(meat_data)});
           }
         });
       });

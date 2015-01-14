@@ -12,6 +12,7 @@ form(action='update_inventory_from_management' method='post')
   input(type='hidden' id='names' name='keys')
   input(type='hidden' id='names' value=user_id name='user_id')
   input(type='submit' value='submit!' required)
+div#inventory_info
 
 link(rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css")
 script(src='http://code.jquery.com/jquery-latest.min.js')
@@ -22,12 +23,16 @@ script(type='text/javascript').
     alert(alertMessage);
   }
   var subcut_names_str = '#{subcut_names}';
-  var names = document.getElementById('names');
-  names.setAttribute('value', subcut_names_str);
+  document.getElementById('names').setAttribute('value', subcut_names_str);
   var subcut_names = subcut_names_str.split(',');
   $("#subcut_name").autocomplete({
     source: subcut_names
   });
+  var replaceAll = function(find, replace, str) {
+    return str.replace(new RegExp(find, 'g'), replace);
+  }
+  var meat_data_str = JSON.stringify(JSON.parse(replaceAll('&quot;', '"', '#{meat_data_str}')), null, 2);
+  $('#inventory_info').append('<pre>' + meat_data_str + '</pre>');
 
 
 
