@@ -5,8 +5,15 @@ var busboy = require('connect-busboy');
 var mongoose = require('mongoose');
 var app = express();
 
+
 //aws = require('aws-sdk');
 //aws.config.loadFromPath('./config/aws_config.json');
+
+
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+app.use(cookieParser());
+app.use(session({secret: '1234567890QWERTY'}));
 
 app.use(bodyParser({strict: false}));
 app.use(busboy());

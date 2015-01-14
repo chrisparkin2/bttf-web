@@ -1,0 +1,19 @@
+html
+form(action='/admin/login_action' method='post')
+  span username
+  br
+  input(type='text' name='username' required)
+  br
+  span password
+  br
+  input(type='text' name='password' required)
+  br
+  br
+  input(type='submit' value='login')
+
+script(type='text/javascript').
+  var alert_message = '#{alert}';
+  console.log(alert_message);
+  if(alert_message && alert_message.length > 0){
+    alert(alert_message);
+  }
