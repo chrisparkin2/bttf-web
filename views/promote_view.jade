@@ -1,0 +1,23 @@
+html
+form(action='/admin/promote_to_admin' method='post')
+  span current admin username
+  br
+  input(type='text' name='username' required)
+  br
+  span current admin password
+  br
+  input(type='text' name='password' required)
+  br
+  span email address of user to promote
+  br
+  input(type='text' name='email_address' required)
+  br
+  br
+  input(type='submit' value='promote')
+
+script(type='text/javascript').
+  var alert_message = '#{alert}';
+  console.log(alert_message);
+  if(alert_message && alert_message.length > 0){
+    alert(alert_message);
+  }

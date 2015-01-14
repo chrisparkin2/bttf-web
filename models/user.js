@@ -7,6 +7,7 @@ var UserSchema = new Schema({
     username : { type: String, required: true },
     password : { type: String, required: true },
     email_address : { type: String, required: true },
+    admin_status : { type: Boolean, required: false },
 });
 
 // before save function equivalent
