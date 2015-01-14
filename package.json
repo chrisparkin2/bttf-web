@@ -5,14 +5,15 @@
   "private": true,
   "dependencies": {
     "express": "4.9.1",
-    "mongoose" : "3.8.16",
-    "body-parser" : "1.9.0",
-    "jade" : "1.7.0",
-    "aws-sdk" : "2.0.18",
-    "connect-busboy" : "0.0.2",
-    "buffer" : "2.7.0",
-    "crypto" : "0.0.3",
-    "knox" : "0.9.1"
+    "mongoose": "3.8.16",
+    "body-parser": "1.9.0",
+    "jade": "1.7.0",
+    "aws-sdk": "2.0.18",
+    "connect-busboy": "0.0.2",
+    "buffer": "2.7.0",
+    "crypto": "0.0.3",
+    "knox": "0.9.1",
+    "plist": "~1.1.0"
   },
   "scripts": {
     "start": "node app.js"

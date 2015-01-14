@@ -1,0 +1,5 @@
+html
+  ul
+    each user in users_info
+      li
+        a(href='/admin/manage/inventory?user_id=' + user[0])=user[1]
