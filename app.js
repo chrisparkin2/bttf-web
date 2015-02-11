@@ -48,3 +48,5 @@ index_route = require('./routes/index')(app);
 user_route = require('./routes/user')(app);
 admin_route = require('./routes/admin')(app);
 meat_route = require('./routes/meat')(app);
+category_route = require('./routes/category')(app);
+product_route = require('./routes/product')(app);
