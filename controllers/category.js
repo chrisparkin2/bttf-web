@@ -7,39 +7,66 @@ var Status = require('../models/Status');
 
 module.exports = {
 
-  read : function(req, res){
-    var user_id = req.body.user_id;
 
-    Meat.findOne({
-      user_id : user_id
-    }, function(err, meat_data){
+
+
+  create : function(req, res){
+
+    console.log("Cateogry req = " + req.body);
+
+    var name = req.body.name;
+    var level = req.body.level;
+    var parent_id = req.body.parent._id;
+
+    Category.find({
+      name : name
+    }, function(err, categories_found){
       if(err){
         status = Status.STATUS_FAILED;
-        message = "error finding category";
+        message = "Could not create Category: " + err;
 
         res.json({
           status : status,
           message : message
         });
       } else{
-        if(meat_data){
-          console.log(meat_data);
-          res.json({
-            status : Status.STATUS_OK,
-            perc_data : meat_data['perc_data'],
-            meat_data : meat_data['meat_data']
-          });
-        } else{
+        if(categories_found.length){
           status = Status.STATUS_FAILED;
-          message = "no meat data found";
+          message = "Category already exists"
 
           res.json({
-            status : status,
-            message : message
+            "status" : status,
+            "message" : message
+          });
+        } else{
+          Category.create({
+            name : name,
+            level : level,
+            parent_id : parent_id
+          }, function(err, category){
+                status = Status.STATUS_OK;
+                message = "";
+
+                if(err){
+                  status = Status.STATUS_FAILED;
+                  message = "Could not create Category: " + err;
+
+                  res.json({
+                    "status" : status,
+                    "message" : message
+                  });
+                }
+
+                res.json({
+                    status : Status.STATUS_OK,
+                    message : "successfully created category",
+                    // data : {
+                    //   token_id : success_data["token_id"]
+                    // }
+                });
           });
         }
       }
     });
-
-  }
+  },
 }
