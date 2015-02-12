@@ -2,30 +2,39 @@
 var express = require('express');
 var token_manager = require('./token');
 var mongoose = require('mongoose')
-  , Product = mongoose.model('Product');
+  , CategoryMain = mongoose.model('CategoryMain')
+  , CategorySub = mongoose.model('CategorySub');
 var Status = require('../models/Status');
 
+
 module.exports = {
+ read : function(req, res){
 
-  read : function(req, res){
+    var query = CategorySub.find();
 
-     var query = Product.find();
-
-    if(req.body.category_product) {
-          query.where("_category_product").equals(req.body.category_product._id);
+    if(req.body.category_main) {
+          query.where("_category_main").equals(req.body.category_main);
     }
+
+    console.log("category_sub.read");
+    console.log(req.body);
+    console.log(req.body.category_main);
 
     query.exec(function(err, data){
       if(err){
 
         status = Status.STATUS_FAILED;
-        message = "error finding product data";
+        message = "error finding category data";
 
         res.json({
           status : status,
           message : message
         });
       } else{
+
+        console.log("data");
+        console.log(data);
+
 
         if(data){
           res.json({
@@ -35,7 +44,7 @@ module.exports = {
         } else{
 
           status = Status.STATUS_FAILED;
-          message = "no product found";
+          message = "no categoryfound";
 
           res.json({
             status : status,
@@ -44,28 +53,31 @@ module.exports = {
         }
       }
     });
-  },
 
-    // Product.find({
-    //   _category_product : req.body.category_product
+
+    // CategorySub.find({
+    //   _category_main : req.body.category_main
     // }, function(err, data){
+
     //   if(err){
     //     status = Status.STATUS_FAILED;
-    //     message = "error finding product";
+    //     message = "error finding category data";
 
     //     res.json({
     //       status : status,
     //       message : message
     //     });
     //   } else{
+
     //     if(data){
     //       res.json({
     //         status : Status.STATUS_OK,
-    //          data : data
+    //         data : data
     //       });
     //     } else{
+
     //       status = Status.STATUS_FAILED;
-    //       message = "no product data found";
+    //       message = "no categoryfound";
 
     //       res.json({
     //         status : status,
@@ -75,18 +87,19 @@ module.exports = {
     //   }
     // });
 
+  },
   create : function(req, res){
 
     var name = req.body.name;
 
-    Product.find({
+    CategorySub.find({
       name : name
     }, function(err, data){
 
 
       if(err){
         status = Status.STATUS_FAILED;
-        message = "Could not create Product: " + err;
+        message = "Could not create Category: " + err;
 
         res.json({
           status : status,
@@ -97,21 +110,18 @@ module.exports = {
 
         if(data.length){
           status = Status.STATUS_FAILED;
-          message = "Product already exists"
+          message = "Category already exists"
 
           res.json({
             "status" : status,
             "message" : message
           });
         } else{
-          Product.create({
+          CategorySub.create({
 
             name : req.body.name,
-            price : req.body.price,
-            supplier : req.body.supplier,
-            _category_main : req.body.category_main,
-            _category_sub : req.body.category_sub,
-            _category_product : req.body.category_product
+            _category_main : req.body.category_main
+
           }, function(err, data){
               status = Status.STATUS_OK;
               message = "";
@@ -139,4 +149,5 @@ module.exports = {
     });
   }
 
+ 
 }

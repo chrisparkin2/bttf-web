@@ -1,13 +1,21 @@
 // module dependencies
 var mongoose = require('mongoose')
   , Schema = mongoose.Schema;
+  // , CategoryMain = mongoose.model('CategoryMain')
+  // , CategorySub = mongoose.model('CategorySub')
+  // , CategoryProduct = mongoose.model('CategoryProduct');
+
+
 
 // set up the schema
 var ProductSchema = new Schema({
   name: { type: String },
-  parent_id : {type : String},
   price: {type : Number},
-  supplier: {type : String}
+  supplier: {type : String},
+  _category_main : { type: Number, ref: 'CategoryMain' },
+  _category_sub : { type: Number, ref: 'CategorySub' },
+  _category_product : { type: Number, ref: 'CategoryProduct' }
+
 })
 
 // before save function equivalent

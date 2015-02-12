@@ -113,6 +113,7 @@ module.exports = {
             });
           }
         } else{
+
           token_manager.update(user, function(success_data){
 
             if(admin_block){

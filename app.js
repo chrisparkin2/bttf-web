@@ -23,24 +23,22 @@ app.engine('jade', require('jade').__express);
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 
+
 var server = app.listen(app.get('port'), function() {
     console.log('Listening on port %d', server.address().port);
 
     //connect mongo
-    var uri = process.env.MONGOLAB_URI || 'mongodb://localhost/bttf';
+    var uri = process.env.MONGOLAB_URI || 'mongodb://localhost';
     mongoose.connect(uri, function(err) {
       if (err) console.log(err);
       console.log('connected mongo');
     });
 });
 
+
+
 //load models
-var models_path = __dirname + '/models/'
-fs.readdirSync(models_path).forEach(function (file) {
-  if(~file.indexOf('.js')){
-    require(models_path + '/' + file);
-  }
-})
+require('./models/models.js').initialize();
 
 
 //routes
@@ -50,3 +48,6 @@ admin_route = require('./routes/admin')(app);
 meat_route = require('./routes/meat')(app);
 category_route = require('./routes/category')(app);
 product_route = require('./routes/product')(app);
+
+
+
