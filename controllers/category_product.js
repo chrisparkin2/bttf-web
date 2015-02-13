@@ -14,7 +14,7 @@ module.exports = {
     var query = CategoryProduct.find();
 
     if(req.body.category_sub) {
-          query.where("_category_sub").equals(req.body.category_sub._id);
+          query.where("_category_sub").equals(req.body.category_sub);
     }
 
     query.exec(function(err, data){

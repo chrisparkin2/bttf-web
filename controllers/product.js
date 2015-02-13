@@ -12,7 +12,7 @@ module.exports = {
      var query = Product.find();
 
     if(req.body.category_product) {
-          query.where("_category_product").equals(req.body.category_product._id);
+          query.where("_category_product").equals(req.body.category_product);
     }
 
     query.exec(function(err, data){
