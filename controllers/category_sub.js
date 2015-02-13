@@ -10,19 +10,13 @@ var Status = require('../models/Status');
 module.exports = {
  read : function(req, res){
 
-    console.log("category_sub.read");
-    console.log(req.body);
-    console.log(req.body.category_main);
-    console.log(req.body.category_main.objectId);
-
     var query = CategorySub.find();
 
     if(req.body.category_main) {
           query.where("_category_main").equals(req.body.category_main);
     }
 
-    
-
+  
     query.exec(function(err, data){
       if(err){
 
@@ -34,9 +28,6 @@ module.exports = {
           message : message
         });
       } else{
-
-        console.log("data");
-        console.log(data);
 
 
         if(data){

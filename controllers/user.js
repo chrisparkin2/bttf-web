@@ -123,6 +123,8 @@ module.exports = {
                 status : Status.STATUS_OK,
                 message : "successful login",
                 data : {
+                  username : user.username,
+                  objectId : user._id,
                   token_id : success_data["token_id"]
                 }
               });
