@@ -14,11 +14,15 @@ module.exports = {
     }, function(err, tk) {
 
       if (err){
+        console.log("token error");
+        console.log(token);
+        console.log(err);
         return res.json(err);
       }
 
       // Token does not exist or access is denied
       if (!tk){
+        console.log("Token does not exist or access is denied");
         return res.json({ error: "Access is denied." });
       }
 

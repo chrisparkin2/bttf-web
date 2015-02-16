@@ -13,7 +13,7 @@ module.exports = {
     var query = CategorySub.find();
 
     if(req.body.category_main) {
-          query.where("_category_main").equals(req.body.category_main);
+          query.where("_category_main_id").equals(req.body._category_main_id);
     }
 
   
@@ -47,40 +47,6 @@ module.exports = {
         }
       }
     });
-
-
-    // CategorySub.find({
-    //   _category_main : req.body.category_main
-    // }, function(err, data){
-
-    //   if(err){
-    //     status = Status.STATUS_FAILED;
-    //     message = "error finding category data";
-
-    //     res.json({
-    //       status : status,
-    //       message : message
-    //     });
-    //   } else{
-
-    //     if(data){
-    //       res.json({
-    //         status : Status.STATUS_OK,
-    //         data : data
-    //       });
-    //     } else{
-
-    //       status = Status.STATUS_FAILED;
-    //       message = "no categoryfound";
-
-    //       res.json({
-    //         status : status,
-    //         message : message
-    //       });
-    //     }
-    //   }
-    // });
-
   },
   create : function(req, res){
 
@@ -111,10 +77,9 @@ module.exports = {
             "message" : message
           });
         } else{
-          CategorySub.create({
-
+            CategorySub.create({
             name : req.body.name,
-            _category_main : req.body.category_main
+            _category_main_id : req.body._category_main_id
 
           }, function(err, data){
               status = Status.STATUS_OK;

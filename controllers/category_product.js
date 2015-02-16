@@ -14,7 +14,7 @@ module.exports = {
     var query = CategoryProduct.find();
 
     if(req.body.category_sub) {
-          query.where("_category_sub").equals(req.body.category_sub);
+          query.where("_category_sub_id").equals(req.body._category_sub_id);
     }
 
     query.exec(function(err, data){
@@ -47,39 +47,8 @@ module.exports = {
       }
     });
   },
-  //   CategoryProduct.find({
-  //     _category_sub : req.body.category_sub
-  //   }, function(err, data){
 
-  //     if(err){
-  //       status = Status.STATUS_FAILED;
-  //       message = "error finding category data";
 
-  //       res.json({
-  //         status : status,
-  //         message : message
-  //       });
-  //     } else{
-
-  //       if(data){
-  //         res.json({
-  //           status : Status.STATUS_OK,
-  //           data : data
-  //         });
-  //       } else{
-
-  //         status = Status.STATUS_FAILED;
-  //         message = "no categoryfound";
-
-  //         res.json({
-  //           status : status,
-  //           message : message
-  //         });
-  //       }
-  //     }
-  //   });
-
-  // },
   create : function(req, res){
 
     var name = req.body.name;
@@ -107,8 +76,8 @@ module.exports = {
         } else{
           CategoryProduct.create({
             name : req.body.name,
-            _category_sub: req.body.category_sub,
-            _category_main : req.body.category_main
+            _category_sub_id: req.body._category_sub_id,
+            _category_main_id : req.body._category_main_id
 
           }, function(err, data){
                 status = Status.STATUS_OK;

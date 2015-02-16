@@ -12,7 +12,7 @@ module.exports = {
     var query = UserProduct.find();
 
     if(req.body.category_product) {
-          query.where("_category_product").equals(req.body.category_product);
+          query.where("_category_product_id").equals(req.body._category_product_id);
     }
 
     if(req.body.user_id) {
@@ -92,9 +92,9 @@ module.exports = {
             quantity_bulk: req.body.quantity_bulk,
             quantity_per_case: req.body.quantity_per_case,
             quantity_units: req.body.quantity_units,
-            _category_main : req.body.category_main,
-            _category_sub : req.body.category_sub,
-            _category_product : req.body.category_product
+            _category_main_id : req.body._category_main_id,
+            _category_sub_id : req.body._category_sub_id,
+            _category_product_id : req.body._category_product_id
           }, function(err, data){
               status = Status.STATUS_OK;
               message = "";

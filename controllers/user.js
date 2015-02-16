@@ -72,6 +72,7 @@ module.exports = {
     User.findOne({
       username : username
     }, function(err, user){
+
       if(err){
         if(admin_block){
           admin_block(false, null);
@@ -148,39 +149,39 @@ module.exports = {
     });
   },
 
-  become : function(req, res){
+  // become : function(req, res){
 
-     token_manager.update(req.body.user, function(success_data){
+  //    token_manager.update(req.body.user, function(success_data){
 
-            if(admin_block){
-              admin_block(user.admin_status, success_data['token_id']);
-            } else{
-              res.json({
-                status : Status.STATUS_OK,
-                message : "successful become user",
-                data : {
-                  username : user.username,
-                  objectId : user._id,
-                  token_id : success_data["token_id"]
-                }
-              });
-            }
+  //           if(admin_block){
+  //             admin_block(user.admin_status, success_data['token_id']);
+  //           } else{
+  //             res.json({
+  //               status : Status.STATUS_OK,
+  //               message : "successful become user",
+  //               data : {
+  //                 username : user.username,
+  //                 objectId : user._id,
+  //                 token_id : success_data["token_id"]
+  //               }
+  //             });
+  //           }
 
-          }, function(error_data){
-            if(admin_block){
-              admin_block(false, null);
-            } else{
-              status = Status.STATUS_FAILED;
-              message = error_data['message'];
+  //         }, function(error_data){
+  //           if(admin_block){
+  //             admin_block(false, null);
+  //           } else{
+  //             status = Status.STATUS_FAILED;
+  //             message = error_data['message'];
 
-              res.json({
-                status : status,
-                message : message
-              });
-            }
-          });
+  //             res.json({
+  //               status : status,
+  //               message : message
+  //             });
+  //           }
+  //         });
 
-  }
+  // }
 
 
 }
