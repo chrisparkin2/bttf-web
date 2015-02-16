@@ -8,10 +8,8 @@ var mongoose = require('mongoose')
 // set up the schema
 var CategoryProductSchema = new Schema({
   name: { type: String },
-  // _category_main : [CategoryMainSchema],
-  // _category_sub : [CategorySubSchema]
-  _category_main : { type: String, ref: 'CategoryMain' },
-  _category_sub: { type: String, ref: 'CategorySub' },
+  _category_main_id : { type: String, ref: 'CategoryMain' },
+  _category_sub_id: { type: String, ref: 'CategorySub' },
 
 
 },

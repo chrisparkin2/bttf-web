@@ -7,8 +7,7 @@ var mongoose = require('mongoose')
 // set up the schema
 var CategorySubSchema = new Schema({
   name: { type: String },
-  // _category_main : [CategoryMainSchema]
-  _category_main : { type: String, ref: 'CategoryMain' }  
+  _category_main_id : { type: String, ref: 'CategoryMain' }  
 
 },
 {
