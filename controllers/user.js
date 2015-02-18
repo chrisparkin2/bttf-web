@@ -47,7 +47,9 @@ module.exports = {
                     status : Status.STATUS_OK,
                     message : "successfully created user",
                     data : {
-                      token_id : success_data["token_id"]
+                      token_id : success_data["token_id"],
+                      username : user.username,
+                      objectId : user._id,
                     }
                   });
                 }, function(err_data){
