@@ -54,10 +54,9 @@ module.exports = {
 
   create : function(req, res){
 
-    var name = req.body.name;
-
     UserProduct.find({
-      name : name
+      user_id : req.body.user_id,
+      name : req.body.name
     }, function(err, data){
 
 
