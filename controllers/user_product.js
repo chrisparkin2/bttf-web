@@ -52,14 +52,69 @@ module.exports = {
   },
 
 
-  create : function(req, res){
+  update : function(req, res){
 
+    UserProduct.update({
+      _id : req.body._id
+    }, 
+    {
+      name : req.body.name,
+      price : req.body.price,
+      supplier : req.body.supplier,
+      quantity_bulk: req.body.quantity_bulk,
+      quantity_per_case: req.body.quantity_per_case,
+      quantity_units: req.body.quantity_units,
+      _category_main_id : req.body._category_main_id,
+      _category_sub_id : req.body._category_sub_id,
+      _category_product_id : req.body._category_product_id
+    }, function(err, data){
+
+      if(err){
+        status = Status.STATUS_FAILED;
+        message = "Error updating UserProduct data";
+
+        res.json({
+          status : status,
+          message : message
+        });
+      } else{
+        if(data){
+          res.json({          
+            status : Status.STATUS_OK,
+            data : data
+          });
+        } 
+        // else{
+
+        //   Meat.create({
+        //     user_id : user_id,
+        //     perc_data : perc_data,
+        //     meat_data : meat_data
+        //   }, function(err, meat){
+        //     if(err){
+        //       status = Status.STATUS_FAILED;
+        //       message = "error creating meat data";
+
+        //       res.json({
+        //         status : status,
+        //         message : message
+        //       });
+        //     } else{
+        //       res.json({
+        //         status : Status.STATUS_OK,
+        //       });
+        //     }
+        //   })
+        // }
+      }
+    });
+  },
+
+  create : function(req, res){
     UserProduct.find({
       user_id : req.body.user_id,
       name : req.body.name
     }, function(err, data){
-
-
       if(err){
         status = Status.STATUS_FAILED;
         message = "Could not create Product: " + err;
@@ -95,14 +150,13 @@ module.exports = {
             _category_sub_id : req.body._category_sub_id,
             _category_product_id : req.body._category_product_id
           }, function(err, data){
+
               status = Status.STATUS_OK;
               message = "";
 
-                if(err){
+            if(err){
                   status = Status.STATUS_FAILED;
-                  message = "Could not create Category: " + err;
-
-          console.log(message);
+                  message = "Could not create Product: " + err;
 
                   res.json({
                     "status" : status,
@@ -111,13 +165,12 @@ module.exports = {
                 }
             else {
 
-                        console.log("successfully created category");
-
 
               res.json({
                   status : Status.STATUS_OK,
-                  message : "successfully created category",
-        
+                  message : "successfully created Product",
+                  data : data
+
               });
             }
           });

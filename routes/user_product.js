@@ -5,6 +5,7 @@ var policy = require('../config/policy');
 
 module.exports = function(app){
   app.post("/user_product/create", policy.is_token_valid, user_product_controller.create);
+  app.post("/user_product/update", policy.is_token_valid, user_product_controller.update);
   app.post("/user_product/read", policy.is_token_valid, user_product_controller.read);
 }
 
