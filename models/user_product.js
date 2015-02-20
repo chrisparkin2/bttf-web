@@ -16,6 +16,7 @@ var UserProductSchema = new Schema({
   quantity_bulk:  {type : Number},
   quantity_per_case:  {type : Number},
   quantity_units:  {type : Number},
+  quantity_trigger: {type : Number},
   _category_main_id : { type: String, ref: 'CategoryMain' },
   _category_sub_id : { type: String, ref: 'CategorySub' },
   _category_product_id : { type: String, ref: 'CategoryProduct' }

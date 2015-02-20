@@ -64,6 +64,7 @@ module.exports = {
       quantity_bulk: req.body.quantity_bulk,
       quantity_per_case: req.body.quantity_per_case,
       quantity_units: req.body.quantity_units,
+      quantity_trigger: req.body.quantity_trigger,
       _category_main_id : req.body._category_main_id,
       _category_sub_id : req.body._category_sub_id,
       _category_product_id : req.body._category_product_id
@@ -146,6 +147,7 @@ module.exports = {
             quantity_bulk: req.body.quantity_bulk,
             quantity_per_case: req.body.quantity_per_case,
             quantity_units: req.body.quantity_units,
+            quantity_trigger: req.body.quantity_trigger,
             _category_main_id : req.body._category_main_id,
             _category_sub_id : req.body._category_sub_id,
             _category_product_id : req.body._category_product_id
