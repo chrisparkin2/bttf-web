@@ -12,7 +12,7 @@ module.exports = {
 
     var query = CategorySub.find();
 
-    if(req.body.category_main) {
+    if(req.body._category_main_id) {
           query.where("_category_main_id").equals(req.body._category_main_id);
     }
 
